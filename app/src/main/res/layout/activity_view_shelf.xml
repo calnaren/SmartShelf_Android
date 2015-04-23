@@ -28,10 +28,57 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle0"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle1"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle2"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+            </LinearLayout>
 
             <EditText
                 android:layout_width="400dp"
@@ -40,12 +87,60 @@
                 android:layout_above="@+id/linearLayout"
                 android:layout_centerHorizontal="true"
                 android:text=""
+                android:editable="false"
                 android:background="#000000" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle3"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle4"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle5"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+            </LinearLayout>
 
             <EditText
                 android:layout_width="400dp"
@@ -54,12 +149,60 @@
                 android:layout_above="@+id/linearLayout"
                 android:layout_centerHorizontal="true"
                 android:text=""
+                android:editable="false"
                 android:background="#000000" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle6"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle7"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+                <Space
+                    android:layout_width="27dp"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:id="@+id/pillBottle8"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pillbottle" />
+
+            </LinearLayout>
 
             <EditText
                 android:layout_width="400dp"
@@ -68,6 +211,7 @@
                 android:layout_above="@+id/linearLayout"
                 android:layout_centerHorizontal="true"
                 android:text=""
+                android:editable="false"
                 android:background="#000000" />
 
             <Space
