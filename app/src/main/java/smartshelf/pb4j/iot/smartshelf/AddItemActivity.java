@@ -7,66 +7,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class AddItemActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_item);
 
-        final Button addItemButton = (Button) findViewById(R.id.button1);
-        final Button locateItemButton = (Button) findViewById(R.id.button2);
-        final Button viewShelfButton = (Button) findViewById(R.id.button3);
-        final Button viewScheduleButton = (Button) findViewById(R.id.button4);
+        final Button backButton = (Button) findViewById(R.id.backButton);
+        final Button homeButton = (Button) findViewById(R.id.homeButton);
 
-        addItemButton.setOnClickListener(
+        backButton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v)
                     {
-                        addItemButton.setBackgroundColor(0xffaaaa00);
-                        Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+                        Intent intent = new Intent(AddItemActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 }
         );
 
-        locateItemButton.setOnClickListener(
+        homeButton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v)
                     {
-                        locateItemButton.setBackgroundColor(0xffaaaa00);
+                        Intent intent = new Intent(AddItemActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 }
         );
-
-        viewShelfButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v)
-                    {
-                        viewShelfButton.setBackgroundColor(0xffaaaa00);
-                    }
-                }
-        );
-
-        viewScheduleButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v)
-                    {
-                        viewScheduleButton.setBackgroundColor(0xffaaaa00);
-                    }
-                }
-        );
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_add_item, menu);
         return true;
     }
 
