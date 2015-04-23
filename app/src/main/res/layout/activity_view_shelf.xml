@@ -221,31 +221,46 @@
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="100dp"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#aadddd"
-            android:text="Back"
-            android:textAllCaps="false"
-            android:textSize="25dp"
-            android:id="@+id/backButton"
-            android:onClick="locateItemClick"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal">
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="1dp"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="#aadddd"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:textSize="25dp"
+                android:id="@+id/backButton"
+                android:onClick="locateItemClick"
+                android:layout_gravity="center_horizontal" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="1dp"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:background="#aadddd"
+                android:text="Home"
+                android:textSize="25dp"
+                android:id="@+id/homeButton"
+                android:onClick="viewShelfClick"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:background="#aadddd"
-            android:text="Home"
-            android:textSize="25dp"
-            android:id="@+id/homeButton"
-            android:onClick="viewShelfClick"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
