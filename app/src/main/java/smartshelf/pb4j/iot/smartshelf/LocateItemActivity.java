@@ -43,9 +43,10 @@ public class LocateItemActivity extends ActionBarActivity {
                                     int position, long id) {
                 final String item = (String) parent.getItemAtPosition(position);
                 Intent intent = new Intent(LocateItemActivity.this, ViewShelfActivity.class);
+
+                intent.putExtra("index", position);
                 startActivity(intent);
             }
-
         });
     }
 

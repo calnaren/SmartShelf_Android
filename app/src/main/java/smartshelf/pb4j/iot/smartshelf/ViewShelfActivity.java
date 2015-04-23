@@ -7,17 +7,37 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class ViewShelfActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent tempIntent = getIntent();
+        int currentIndex = tempIntent.getIntExtra("index", -1);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_shelf);
 
         final Button backButton = (Button) findViewById(R.id.backButton);
         final Button homeButton = (Button) findViewById(R.id.homeButton);
+
+        final EditText[][] lights = new EditText[3][3];
+        lights[0][0] = (EditText) findViewById(R.id.tray1_2);
+        lights[0][1] = (EditText) findViewById(R.id.tray1_4);
+        lights[0][2] = (EditText) findViewById(R.id.tray1_6);
+        lights[1][0] = (EditText) findViewById(R.id.tray2_2);
+        lights[1][1] = (EditText) findViewById(R.id.tray2_4);
+        lights[1][2] = (EditText) findViewById(R.id.tray2_6);
+        lights[2][0] = (EditText) findViewById(R.id.tray3_2);
+        lights[2][1] = (EditText) findViewById(R.id.tray3_4);
+        lights[2][2] = (EditText) findViewById(R.id.tray3_6);
+
+        if (currentIndex > 0) {
+            lights[currentIndex/3][currentIndex%3].setBackgroundColor(0xff0000ff);
+        }
 
         backButton.setOnClickListener(
                 new Button.OnClickListener() {
