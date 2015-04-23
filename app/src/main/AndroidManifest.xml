@@ -23,6 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ViewShelfActivity"
+            android:label="@string/title_activity_view_shelf" >
+        </activity>
+        <activity
+            android:name=".LocateItemActivity"
+            android:label="@string/title_activity_locate_item" >
+        </activity>
+        <activity
+            android:name=".ViewScheduleActivity"
+            android:label="@string/title_activity_view_schedule" >
+        </activity>
     </application>
 
 </manifest>

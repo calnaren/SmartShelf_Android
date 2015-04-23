@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,7 +25,6 @@ public class MainActivity extends ActionBarActivity {
                 new Button.OnClickListener() {
                     public void onClick(View v)
                     {
-                        addItemButton.setBackgroundColor(0xffaaaa00);
                         Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
                         startActivity(intent);
                     }
@@ -37,7 +35,8 @@ public class MainActivity extends ActionBarActivity {
                 new Button.OnClickListener() {
                     public void onClick(View v)
                     {
-                        locateItemButton.setBackgroundColor(0xffaaaa00);
+                        Intent intent = new Intent(MainActivity.this, LocateItemActivity.class);
+                        startActivity(intent);
                     }
                 }
         );
@@ -46,7 +45,8 @@ public class MainActivity extends ActionBarActivity {
                 new Button.OnClickListener() {
                     public void onClick(View v)
                     {
-                        viewShelfButton.setBackgroundColor(0xffaaaa00);
+                        Intent intent = new Intent(MainActivity.this, ViewShelfActivity.class);
+                        startActivity(intent);
                     }
                 }
         );
@@ -55,7 +55,8 @@ public class MainActivity extends ActionBarActivity {
                 new Button.OnClickListener() {
                     public void onClick(View v)
                     {
-                        viewScheduleButton.setBackgroundColor(0xffaaaa00);
+                        Intent intent = new Intent(MainActivity.this, ViewScheduleActivity.class);
+                        startActivity(intent);
                     }
                 }
         );

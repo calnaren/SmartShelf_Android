@@ -4,4 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="title_activity_view_shelf">ViewShelfActivity</string>
+    <string name="title_activity_locate_item">LocateItemActivity</string>
+    <string name="title_activity_view_schedule">ViewScheduleActivity</string>
 </resources>

@@ -10,7 +10,17 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:id="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/smartshelflogo"/>
 
         <Button
             android:layout_width="100dp"
@@ -38,12 +48,6 @@
             android:id="@+id/homeButton"
             android:onClick="viewShelfClick"
             android:layout_gravity="center_horizontal" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"></LinearLayout>
 
     </LinearLayout>
 
