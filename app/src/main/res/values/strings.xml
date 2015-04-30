@@ -7,4 +7,5 @@
     <string name="title_activity_view_shelf">ViewShelfActivity</string>
     <string name="title_activity_locate_item">LocateItemActivity</string>
     <string name="title_activity_view_schedule">ViewScheduleActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

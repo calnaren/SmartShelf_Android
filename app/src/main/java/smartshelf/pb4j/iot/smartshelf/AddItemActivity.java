@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class AddItemActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
@@ -40,11 +39,19 @@ public class AddItemActivity extends ActionBarActivity {
     public static final int refreshPeriod = 5000;
     private Timer timer = null;
     private TimerTask timerTask;
-    private double sineWaveValue;
+    private String sineWaveValue;
     public TextView displayData;
+    public boolean runFlag = false;
+
+    @Override
+    protected void onDestroy() {
+        runFlag = false;
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        runFlag = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
@@ -117,7 +124,8 @@ public class AddItemActivity extends ActionBarActivity {
 
     private void initMaps() {
         uuidToKey = new HashMap<String, String>();
-        uuidToKey.put("dafe6489-e85a-5641-93be-f8c2a7ec72c4", "sine wave");
+        //uuidToKey.put("dafe6489-e85a-5641-93be-f8c2a7ec72c4", "sine wave");
+        uuidToKey.put("f9838331-359b-4b49-9089-9016317abdbe", "barcode");
         keyToUuid = new HashMap<String, String>();
         for(Map.Entry<String, String> entry : uuidToKey.entrySet()){
             keyToUuid.put(entry.getValue(), entry.getKey());
@@ -152,7 +160,7 @@ public class AddItemActivity extends ActionBarActivity {
         timer.scheduleAtFixedRate(timerTask, delay, refreshPeriod);
     }
 
-    protected boolean updatePref(double value) {
+    protected boolean updatePref(String value) {
         sineWaveValue = value;
         return true;
     }
@@ -171,52 +179,54 @@ public class AddItemActivity extends ActionBarActivity {
 
     private class SmapQueryAsyncTask extends AsyncTask<String, Void, Boolean> {
         private String uuid;
-        public static final String QUERY_LINE = "select data before now where uuid = 'dafe6489-e85a-5641-93be-f8c2a7ec72c4'";
+        public static final String QUERY_LINE = "select data before now where uuid = 'f9838331-359b-4b49-9089-9016317abdbe'";
         public SmapQueryAsyncTask(String uuid) {
             super();
             this.uuid = uuid;
         }
         @Override
         protected Boolean doInBackground(String...urls) {
-            for(String url: urls) {
+            for (String url : urls) {
                 final String uri = url;
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            DefaultHttpClient httpclient = new DefaultHttpClient();
-                            //HttpPost httpPostReq = new HttpPost(uri);
-                            HttpPost httpPostReq = new HttpPost("http://shell.storm.pm:8079/api/query");
-                            //StringEntity se = new StringEntity(String.format(QUERY_LINE, uuid));
-                            StringEntity se = new StringEntity(QUERY_LINE);
+                        if (runFlag) {
+                            try {
+                                DefaultHttpClient httpclient = new DefaultHttpClient();
+                                //HttpPost httpPostReq = new HttpPost(uri);
+                                HttpPost httpPostReq = new HttpPost("http://shell.storm.pm:8079/api/query");
+                                //StringEntity se = new StringEntity(String.format(QUERY_LINE, uuid));
+                                StringEntity se = new StringEntity(QUERY_LINE);
 
-                            httpPostReq.setEntity(se);
-                            HttpResponse httpResponse = httpclient.execute(httpPostReq);
-                            InputStream inputStream = httpResponse.getEntity().getContent();
-                            final String response = inputStreamToString(inputStream);
-                            Log.d("httpPost", response);
-                            JSONObject jsonResponse = new JSONObject(response.substring(1, response.length() - 1));
-                            JSONArray readings = ((JSONArray) jsonResponse.getJSONArray("Readings")).getJSONArray(0);
-                            String retUuid = jsonResponse.getString("uuid");
-                            double value = readings.getDouble(1);
-                            AddItemActivity.this.updatePref(value);
-                            System.out.println(value);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    AddItemActivity.this.updateSineWaveText();
-                                }
-                            });
+                                httpPostReq.setEntity(se);
+                                HttpResponse httpResponse = httpclient.execute(httpPostReq);
+                                InputStream inputStream = httpResponse.getEntity().getContent();
+                                final String response = inputStreamToString(inputStream);
+                                Log.d("httpPost", response);
+                                JSONObject jsonResponse = new JSONObject(response.substring(1, response.length() - 1));
+                                JSONArray readings = ((JSONArray) jsonResponse.getJSONArray("Readings")).getJSONArray(0);
+                                String retUuid = jsonResponse.getString("uuid");
+                                String value = readings.getString(1);
+                                AddItemActivity.this.updatePref(value);
+                                System.out.println(value);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AddItemActivity.this.updateSineWaveText();
+                                    }
+                                });
 
-                        } catch (Exception e) {
-                            //Log.d("httpPost", "failed");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getBaseContext(), "Please Check Connection", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            e.printStackTrace();
+                            } catch (Exception e) {
+                                //Log.d("httpPost", "failed");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getBaseContext(), "Please Check Connection", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });

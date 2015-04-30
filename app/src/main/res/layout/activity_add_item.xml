@@ -14,13 +14,13 @@
         android:id="@+id/linearLayout">
 
         <ImageView
-            android:layout_width="150dp"
+            android:layout_width="320dp"
             android:layout_height="100dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/smartshelflogo"/>
+            android:src="@drawable/logocolor"/>
 
         <LinearLayout
             android:orientation="horizontal"
