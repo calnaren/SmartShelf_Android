@@ -24,6 +24,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -210,6 +213,26 @@ public class AddItemActivity extends ActionBarActivity {
                                 String value = readings.getString(1);
                                 AddItemActivity.this.updatePref(value);
                                 System.out.println(value);
+
+                                //FIXME: Should go into locate item rather than here
+                                JSONObject message = new JSONObject();
+                                message.put("r", "255");
+                                message.put("g", "255");
+                                message.put("b", "0");
+                                message.put("index", "3");
+
+                                int server_port = 2196;
+                                InetAddress[] local = InetAddress.getAllByName("2001:470:66:3f9::2");
+                                System.out.println(local[0]);
+                                int msg_length = message.toString().length();
+                                byte[] message2 = message.toString().getBytes();
+
+                                DatagramSocket s = new DatagramSocket();
+                                for (int iter = 0; iter < 1; iter++) {
+                                    DatagramPacket p = new DatagramPacket(message2, msg_length, local[0], server_port);
+                                    s.send(p);
+                                }
+
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
