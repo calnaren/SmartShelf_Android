@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -257,10 +258,12 @@ public class MainActivity extends ActionBarActivity {
 
                                 //FIXME: Should go into locate item rather than here
                                 JSONObject message = new JSONObject();
-                                message.put("r", "255");
-                                message.put("g", "255");
-                                message.put("b", "0");
-                                message.put("index", "3");
+                                LED led = DataHolder.getInstance().getLed();
+
+                                message.put("r", led.getR()+"");
+                                message.put("g", led.getG()+"");
+                                message.put("b", led.getB()+"");
+                                message.put("index", led.getIndex()+"");
 
                                 int server_port = 2196;
                                 InetAddress[] local = InetAddress.getAllByName("2001:470:66:3f9::2");

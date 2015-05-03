@@ -1,6 +1,7 @@
 package smartshelf.pb4j.iot.smartshelf;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,15 +9,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import java.util.List;
 
 
 public class ViewShelfActivity extends ActionBarActivity {
+
+    final ImageView [][] bottles = new ImageView[3][3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent tempIntent = getIntent();
-        int currentIndex = tempIntent.getIntExtra("index", -1);
+        int currentIndex, r, g, b, color;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_shelf);
@@ -35,9 +41,36 @@ public class ViewShelfActivity extends ActionBarActivity {
         lights[2][1] = (EditText) findViewById(R.id.tray3_4);
         lights[2][2] = (EditText) findViewById(R.id.tray3_6);
 
-        if (currentIndex > 0) {
-            lights[currentIndex/3][currentIndex%3].setBackgroundColor(0xff0000ff);
+        bottles[0][0] = (ImageView) findViewById(R.id.pillBottle0);
+        bottles[0][1] = (ImageView) findViewById(R.id.pillBottle1);
+        bottles[0][2] = (ImageView) findViewById(R.id.pillBottle2);
+        bottles[1][0] = (ImageView) findViewById(R.id.pillBottle3);
+        bottles[1][1] = (ImageView) findViewById(R.id.pillBottle4);
+        bottles[1][2] = (ImageView) findViewById(R.id.pillBottle5);
+        bottles[2][0] = (ImageView) findViewById(R.id.pillBottle6);
+        bottles[2][1] = (ImageView) findViewById(R.id.pillBottle7);
+        bottles[2][2] = (ImageView) findViewById(R.id.pillBottle8);
+
+        List<Integer> weights = DataHolder.getInstance().getShelf();
+
+        List<ShelfItem> tempItems = DataHolder.getInstance().getItems();
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                bottles[i][j].setAlpha(0.0f);
+            }
         }
+        for (ShelfItem item: tempItems) {
+            bottles[item.getIndex()/3][item.getIndex()%3].setAlpha(1.0f);
+        }
+
+        LED led = DataHolder.getInstance().getLed();
+        currentIndex = led.getIndex();
+        r = led.getR();
+        g = led.getG();
+        b = led.getB();
+        color = (0xff<<24) | (r<<16) | (g<<8) | b;
+        lights[currentIndex/3][currentIndex%3].setBackgroundColor(color);
 
         backButton.setOnClickListener(
                 new Button.OnClickListener() {

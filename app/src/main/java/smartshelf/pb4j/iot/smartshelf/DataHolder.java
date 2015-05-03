@@ -11,6 +11,25 @@ public class DataHolder {
     private String previousBarcode = "";
     private List<Integer> shelfWeights = new ArrayList<Integer>();
     private List<Integer> previousShelfWeights = new ArrayList<Integer>();
+    private List<ShelfItem> items = new ArrayList<ShelfItem>();
+    private LED led= new LED(0, 0, 0, 0);
+
+    public LED getLed() {
+        return led;
+    }
+
+    public void setLed(LED led) {
+        this.led = led;
+    }
+
+    public List<ShelfItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ShelfItem> items) {
+        this.items = items;
+    }
+
     public String getBarcode() {
         return this.barcode;
     }
@@ -34,11 +53,7 @@ public class DataHolder {
     }
 
     public void setShelf(List<Integer> shelfWeights_arg) {
-        ArrayList<Integer> temp = new ArrayList<Integer>();
-        for (Integer i: this.shelfWeights) {
-            temp.add(i);
-        }
-        this.previousShelfWeights = temp;
+        this.previousShelfWeights = this.shelfWeights;
         this.shelfWeights = shelfWeights_arg;
     }
 

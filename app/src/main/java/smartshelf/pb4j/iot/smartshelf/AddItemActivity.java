@@ -127,6 +127,13 @@ public class AddItemActivity extends ActionBarActivity {
             displayData.setText("Waiting for barcode...");
         }
         else if (!barcode.equals(previousBarcode)) {
+            List<ShelfItem> temp = DataHolder.getInstance().getItems();
+            ShelfItem newItem = new ShelfItem();
+            newItem.setName(barcode);
+            boolean [] tempSchedule = {true, false, true};
+            newItem.setSchedule(tempSchedule);
+            temp.add(newItem);
+            DataHolder.getInstance().setItems(temp);
             Intent intent = new Intent(AddItemActivity.this, PlaceActivity.class);
             AddItemActivity.this.startActivity(intent);
         }
