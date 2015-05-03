@@ -28,6 +28,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,6 +40,7 @@ public class AddItemActivity extends ActionBarActivity {
     private TimerTask timerTask;
 
     public TextView displayData;
+    public TextView shelfData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class AddItemActivity extends ActionBarActivity {
         final Button homeButton = (Button) findViewById(R.id.homeButton);
 
         displayData = (TextView) findViewById(R.id.displayData);
+        shelfData = (TextView) findViewById(R.id.shelfData);
 
         backButton.setOnClickListener(
                 new Button.OnClickListener() {
@@ -121,6 +124,15 @@ public class AddItemActivity extends ActionBarActivity {
         displayData.setText(barcode);
     }
 
+    public void updateShelf() {
+        List<Integer> shelfInfo = DataHolder.getInstance().getShelf();
+        String text = "";
+        for (Integer s: shelfInfo) {
+            text += s + " ";
+        }
+        shelfData.setText(text);
+    }
+
     private class UpdatingUIElements extends AsyncTask<String, Void, Boolean> {
         public UpdatingUIElements() {
             super();
@@ -134,6 +146,7 @@ public class AddItemActivity extends ActionBarActivity {
                         @Override
                         public void run() {
                             AddItemActivity.this.updateBarcode();
+                            AddItemActivity.this.updateShelf();
                         }
                     });
                 }

@@ -31,8 +31,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,7 +49,6 @@ public class MainActivity extends ActionBarActivity {
     public static final int refreshPeriod = 5000;
     private Timer timer = null;
     private TimerTask timerTask;
-    private String barcodeValue;
     public boolean runFlag = false;
 
     @Override
@@ -187,11 +188,6 @@ public class MainActivity extends ActionBarActivity {
         timer.scheduleAtFixedRate(timerTask, delay, refreshPeriod);
     }
 
-    protected boolean updatePref(String value) {
-        barcodeValue = value;
-        return true;
-    }
-
     private static String inputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
@@ -206,7 +202,8 @@ public class MainActivity extends ActionBarActivity {
 
     private class SmapQueryAsyncTask extends AsyncTask<String, Void, Boolean> {
         private String uuid;
-        public static final String QUERY_LINE = "select data before now where uuid = 'f9838331-359b-4b49-9089-9016317abdbe'";
+        public static final String QUERY_LINE_BARCODE = "select data before now where uuid = 'f9838331-359b-4b49-9089-9016317abdbe'";
+        public static final String QUERY_LINE_SHELF = "select data before now where uuid = 'e353dafc-2c5e-4c55-b245-83ac5a2bb6ab'";
         public SmapQueryAsyncTask(String uuid) {
             super();
             this.uuid = uuid;
@@ -223,8 +220,8 @@ public class MainActivity extends ActionBarActivity {
                                 DefaultHttpClient httpclient = new DefaultHttpClient();
                                 //HttpPost httpPostReq = new HttpPost(uri);
                                 HttpPost httpPostReq = new HttpPost("http://shell.storm.pm:8079/api/query");
-                                //StringEntity se = new StringEntity(String.format(QUERY_LINE, uuid));
-                                StringEntity se = new StringEntity(QUERY_LINE);
+                                //StringEntity se = new StringEntity(String.format(QUERY_LINE_BARCODE, uuid));
+                                StringEntity se = new StringEntity(QUERY_LINE_BARCODE);
 
                                 httpPostReq.setEntity(se);
                                 HttpResponse httpResponse = httpclient.execute(httpPostReq);
@@ -238,8 +235,24 @@ public class MainActivity extends ActionBarActivity {
                                 String value = readings.getString(1);
                                 DataHolder.getInstance().setBarcode(value);
 
-                                MainActivity.this.updatePref(value);
                                 System.out.println(value);
+
+                                StringEntity se_shelf = new StringEntity(QUERY_LINE_SHELF);
+                                httpPostReq.setEntity(se_shelf);
+                                HttpResponse httpResponse_shelf = httpclient.execute(httpPostReq);
+                                InputStream inputStream_shelf = httpResponse_shelf.getEntity().getContent();
+                                final String response_shelf = inputStreamToString(inputStream_shelf);
+                                Log.d("httpPost", response_shelf);
+                                JSONObject jsonResponse_shelf = new JSONObject(response_shelf.substring(1, response_shelf.length() - 1));
+                                JSONArray readings_shelf = ((JSONArray) jsonResponse_shelf.getJSONArray("Readings")).getJSONArray(0);
+                                String retUuid_shelf = jsonResponse_shelf.getString("uuid");
+
+                                JSONArray value_shelf = readings_shelf.getJSONArray(1);
+                                List<Integer> shelfWeights = new ArrayList<Integer>();
+                                for (int iter = 0; iter < value_shelf.length(); iter++) {
+                                    shelfWeights.add(Integer.parseInt(value_shelf.getString(iter)));
+                                }
+                                DataHolder.getInstance().setShelf(shelfWeights);
 
                                 //FIXME: Should go into locate item rather than here
                                 JSONObject message = new JSONObject();

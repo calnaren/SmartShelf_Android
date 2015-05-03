@@ -65,6 +65,13 @@
             android:text="Data to be Received"
             android:id="@+id/displayData" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ShelfData"
+            android:id="@+id/shelfData"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 
 </RelativeLayout>
