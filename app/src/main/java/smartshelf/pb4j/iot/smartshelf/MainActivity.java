@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
     public static final int refreshPeriod = 5000;
     private Timer timer = null;
     private TimerTask timerTask;
-    private String sineWaveValue;
+    private String barcodeValue;
     public boolean runFlag = false;
 
     @Override
@@ -160,8 +160,8 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    protected void updateSineWaveText() {
-        //displayData.setText(sineWaveValue+"");
+    protected void updateBarcodeText() {
+        //displayData.setText(barcodeValue+"");
         //displayData.setAllCaps(true);
     }
 
@@ -188,7 +188,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     protected boolean updatePref(String value) {
-        sineWaveValue = value;
+        barcodeValue = value;
         return true;
     }
 
@@ -263,7 +263,7 @@ public class MainActivity extends ActionBarActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        MainActivity.this.updateSineWaveText();
+                                        MainActivity.this.updateBarcodeText();
                                     }
                                 });
 
