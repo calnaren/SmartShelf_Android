@@ -233,6 +233,7 @@ public class MainActivity extends ActionBarActivity {
                                 String retUuid = jsonResponse.getString("uuid");
 
                                 String value = readings.getString(1);
+
                                 DataHolder.getInstance().setBarcode(value);
 
                                 System.out.println(value);

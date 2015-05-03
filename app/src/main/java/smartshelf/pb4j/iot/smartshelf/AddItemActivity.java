@@ -121,7 +121,15 @@ public class AddItemActivity extends ActionBarActivity {
 
     public void updateBarcode() {
         String barcode = DataHolder.getInstance().getBarcode();
-        displayData.setText(barcode);
+        String previousBarcode = DataHolder.getInstance().getPreviousBarcode();
+        if (previousBarcode.equals("")) {
+            DataHolder.getInstance().setPreviousBarcode(barcode);
+            displayData.setText("Waiting for barcode...");
+        }
+        else if (!barcode.equals(previousBarcode)) {
+            Intent intent = new Intent(AddItemActivity.this, PlaceActivity.class);
+            AddItemActivity.this.startActivity(intent);
+        }
     }
 
     public void updateShelf() {
