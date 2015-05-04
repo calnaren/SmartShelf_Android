@@ -20,6 +20,7 @@ public class ViewShelfActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataHolder.getInstance().setCurrentActivity("shelf");
 
         Intent tempIntent = getIntent();
         int currentIndex, r, g, b, color;

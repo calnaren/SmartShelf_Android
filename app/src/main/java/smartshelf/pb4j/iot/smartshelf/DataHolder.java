@@ -13,6 +13,33 @@ public class DataHolder {
     private List<Integer> previousShelfWeights = new ArrayList<Integer>();
     private List<ShelfItem> items = new ArrayList<ShelfItem>();
     private LED led= new LED(0, 0, 0, 0);
+    private String currentActivity = "";
+    private boolean addFlag = false;
+    private boolean placeFlag = false;
+
+    public boolean isAddFlag() {
+        return addFlag;
+    }
+
+    public void setAddFlag(boolean addFlag) {
+        this.addFlag = addFlag;
+    }
+
+    public boolean isPlaceFlag() {
+        return placeFlag;
+    }
+
+    public void setPlaceFlag(boolean placeFlag) {
+        this.placeFlag = placeFlag;
+    }
+
+    public String getCurrentActivity() {
+        return currentActivity;
+    }
+
+    public void setCurrentActivity(String currentActivity) {
+        this.currentActivity = currentActivity;
+    }
 
     public LED getLed() {
         return led;

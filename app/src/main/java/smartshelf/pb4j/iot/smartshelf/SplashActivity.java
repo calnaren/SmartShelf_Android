@@ -19,6 +19,7 @@ public class SplashActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataHolder.getInstance().setCurrentActivity("splash");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 

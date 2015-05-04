@@ -44,6 +44,7 @@ public class AddItemActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataHolder.getInstance().setCurrentActivity("add");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
@@ -73,7 +74,10 @@ public class AddItemActivity extends ActionBarActivity {
                 }
         );
 
-        rescheduleTimer(refreshPeriod);
+        if (!DataHolder.getInstance().isAddFlag()) {
+            rescheduleTimer(refreshPeriod);
+            DataHolder.getInstance().setAddFlag(true);
+        }
     }
 
 
@@ -160,8 +164,10 @@ public class AddItemActivity extends ActionBarActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AddItemActivity.this.updateBarcode();
-                            AddItemActivity.this.updateShelf();
+                            if (DataHolder.getInstance().getCurrentActivity() == "add") {
+                                AddItemActivity.this.updateBarcode();
+                                AddItemActivity.this.updateShelf();
+                            }
                         }
                     });
                 }

@@ -20,6 +20,7 @@ public class LocateItemActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataHolder.getInstance().setCurrentActivity("locate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate_item);
 

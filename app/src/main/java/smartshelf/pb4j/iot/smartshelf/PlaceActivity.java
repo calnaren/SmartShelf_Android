@@ -23,12 +23,16 @@ public class PlaceActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataHolder.getInstance().setCurrentActivity("place");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
 
         displayData = (TextView) findViewById(R.id.displayData);
 
-        rescheduleTimer(refreshPeriod);
+        if (!DataHolder.getInstance().isPlaceFlag()) {
+            rescheduleTimer(refreshPeriod);
+            DataHolder.getInstance().setPlaceFlag(true);
+        }
     }
 
 
@@ -79,7 +83,7 @@ public class PlaceActivity extends ActionBarActivity {
         for (Integer s: shelfInfo) {
             text += s + " ";
         }
-        displayData.setText(text);
+        displayData.setText(DataHolder.getInstance().getItems().size()+"");
 
         List<Integer> previous = DataHolder.getInstance().getPreviousShelf();
         int j = 0;
@@ -116,7 +120,9 @@ public class PlaceActivity extends ActionBarActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            PlaceActivity.this.checkItemDetected();
+                            if (DataHolder.getInstance().getCurrentActivity() == "place") {
+                                PlaceActivity.this.checkItemDetected();
+                            }
                         }
                     });
                 }

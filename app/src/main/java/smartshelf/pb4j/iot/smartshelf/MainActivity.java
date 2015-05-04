@@ -60,6 +60,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataHolder.getInstance().setCurrentActivity("main");
         runFlag = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
