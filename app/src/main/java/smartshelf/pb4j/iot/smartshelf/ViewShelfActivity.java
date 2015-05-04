@@ -16,6 +16,7 @@ import java.util.List;
 
 public class ViewShelfActivity extends ActionBarActivity {
 
+    final EditText[][] lights = new EditText[3][3];
     final ImageView [][] bottles = new ImageView[3][3];
 
     @Override
@@ -31,7 +32,6 @@ public class ViewShelfActivity extends ActionBarActivity {
         final Button backButton = (Button) findViewById(R.id.backButton);
         final Button homeButton = (Button) findViewById(R.id.homeButton);
 
-        final EditText[][] lights = new EditText[3][3];
         lights[0][0] = (EditText) findViewById(R.id.tray1_2);
         lights[0][1] = (EditText) findViewById(R.id.tray1_4);
         lights[0][2] = (EditText) findViewById(R.id.tray1_6);
@@ -74,23 +74,25 @@ public class ViewShelfActivity extends ActionBarActivity {
         lights[currentIndex/3][currentIndex%3].setBackgroundColor(color);
 
         backButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v)
-                    {
-                        Intent intent = new Intent(ViewShelfActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+            new Button.OnClickListener() {
+                public void onClick(View v)
+                {
+                    resetLights();
+                    Intent intent = new Intent(ViewShelfActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
+            }
         );
 
         homeButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v)
-                    {
-                        Intent intent = new Intent(ViewShelfActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+            new Button.OnClickListener() {
+                public void onClick(View v)
+                {
+                    resetLights();
+                    Intent intent = new Intent(ViewShelfActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
+            }
         );
     }
 
@@ -115,5 +117,13 @@ public class ViewShelfActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void resetLights() {
+        LED led = DataHolder.getInstance().getLed();
+        led.setR(0);
+        led.setG(0);
+        led.setB(0);
+        DataHolder.getInstance().setLed(led);
     }
 }

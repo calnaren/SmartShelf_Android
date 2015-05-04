@@ -19,6 +19,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -219,7 +222,10 @@ public class MainActivity extends ActionBarActivity {
                     public void run() {
                         if (runFlag) {
                             try {
-                                DefaultHttpClient httpclient = new DefaultHttpClient();
+                                HttpParams par = new BasicHttpParams();
+                                HttpConnectionParams.setConnectionTimeout(par, 3000);
+                                HttpConnectionParams.setSoTimeout(par, 5000);
+                                DefaultHttpClient httpclient = new DefaultHttpClient(par);
                                 //HttpPost httpPostReq = new HttpPost(uri);
                                 HttpPost httpPostReq = new HttpPost("http://shell.storm.pm:8079/api/query");
                                 //StringEntity se = new StringEntity(String.format(QUERY_LINE_BARCODE, uuid));
@@ -239,7 +245,6 @@ public class MainActivity extends ActionBarActivity {
                                 DataHolder.getInstance().setBarcode(value);
 
                                 System.out.println(value);
-
                                 StringEntity se_shelf = new StringEntity(QUERY_LINE_SHELF);
                                 httpPostReq.setEntity(se_shelf);
                                 HttpResponse httpResponse_shelf = httpclient.execute(httpPostReq);
@@ -268,7 +273,6 @@ public class MainActivity extends ActionBarActivity {
 
                                 int server_port = 2196;
                                 InetAddress[] local = InetAddress.getAllByName("2001:470:66:3f9::2");
-                                System.out.println(local[0]);
                                 int msg_length = message.toString().length();
                                 byte[] message2 = message.toString().getBytes();
 
