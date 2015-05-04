@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Timer;
@@ -18,11 +19,16 @@ public class PlaceActivity extends ActionBarActivity {
     public static final int refreshPeriod = 5000;
     private Timer timer = null;
     private TimerTask timerTask;
+    public TextView displayData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
+
+        displayData = (TextView) findViewById(R.id.displayData);
+
+        rescheduleTimer(refreshPeriod);
     }
 
 
@@ -68,6 +74,13 @@ public class PlaceActivity extends ActionBarActivity {
     }
 
     public void checkItemDetected() {
+        List<Integer> shelfInfo = DataHolder.getInstance().getShelf();
+        String text = "";
+        for (Integer s: shelfInfo) {
+            text += s + " ";
+        }
+        displayData.setText(text);
+
         List<Integer> previous = DataHolder.getInstance().getPreviousShelf();
         int j = 0;
         boolean flag = false;
@@ -80,14 +93,12 @@ public class PlaceActivity extends ActionBarActivity {
                 tempItems.get(tempItems.size()-1).setIndex(index);
                 tempItems.get(tempItems.size()-1).setWeight(i);
                 DataHolder.getInstance().setItems(tempItems);
-                LED led = DataHolder.getInstance().getLed();
                 DataHolder.getInstance().setLed(new LED(index, 0, 255, 0));
             }
             j++;
         }
 
         if (flag) {
-
             Intent intent = new Intent(PlaceActivity.this, ViewShelfActivity.class);
             PlaceActivity.this.startActivity(intent);
         }
