@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -89,15 +90,22 @@ public class PlaceActivity extends ActionBarActivity {
         int j = 0;
         boolean flag = false;
         int index = -1;
+        List<ShelfItem> items = DataHolder.getInstance().getItems();
+        ArrayList<Integer> used = new ArrayList<Integer>();
+        for (ShelfItem item: items) {
+            used.add(item.getIndex());
+        }
         for (Integer i: DataHolder.getInstance().getShelf()) {
-            if (i - (previous.get(j)) > 10) {
-                flag = true;
-                index = j;
-                List<ShelfItem> tempItems = DataHolder.getInstance().getItems();
-                tempItems.get(tempItems.size()-1).setIndex(index);
-                tempItems.get(tempItems.size()-1).setWeight(i);
-                DataHolder.getInstance().setItems(tempItems);
-                DataHolder.getInstance().setLed(new LED(index, 0, 255, 0));
+            if (!used.contains(j)) {
+                if (i - (previous.get(j)) > 10) {
+                    flag = true;
+                    index = j;
+                    List<ShelfItem> tempItems = DataHolder.getInstance().getItems();
+                    tempItems.get(tempItems.size() - 1).setIndex(index);
+                    tempItems.get(tempItems.size() - 1).setWeight(i);
+                    DataHolder.getInstance().setItems(tempItems);
+                    DataHolder.getInstance().setLed(new LED(index, 0, 255, 0));
+                }
             }
             j++;
         }

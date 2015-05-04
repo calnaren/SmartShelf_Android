@@ -71,7 +71,11 @@ public class ViewShelfActivity extends ActionBarActivity {
         g = led.getG();
         b = led.getB();
         color = (0xff<<24) | (r<<16) | (g<<8) | b;
+        if (color == 0xff000000) {
+            color = 0xffffffff;
+        }
         lights[currentIndex/3][currentIndex%3].setBackgroundColor(color);
+        System.out.println(currentIndex);
 
         backButton.setOnClickListener(
             new Button.OnClickListener() {
