@@ -187,55 +187,57 @@ public class MainActivity extends ActionBarActivity {
             }
         }
         for (ShelfItem item: items) {
-            boolean [] schedule = item.getSchedule();
-            boolean [] taken = item.getTaken();
-            boolean [] notified = item.getNotified();
-            if (relativeMinutes < 1) {
-                notified[2] = false;
-                if (!taken[0] && schedule[0]) {
+            if (item.getIndex() > -1) {
+                boolean[] schedule = item.getSchedule();
+                boolean[] taken = item.getTaken();
+                boolean[] notified = item.getNotified();
+                if (relativeMinutes < 1) {
+                    notified[2] = false;
+                    if (!taken[0] && schedule[0]) {
+                        if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                            taken[0] = true;
+                        }
+                    }
+                } else if (relativeMinutes < 5 && !taken[0] && schedule[0]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[0] = true;
                     }
-                }
-            } else if (relativeMinutes < 5 && !taken[0] && schedule[0]) {
-                if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
-                    taken[0] = true;
-                }
-                if (!notified[0] && !taken[0]) {
-                    notifyString += item.getName() + " ";
-                    notified[0] = true;
-                }
-            } else if (relativeMinutes < 6) {
-                notified[0] = false;
-                if (!taken[1] && schedule[1]) {
+                    if (!notified[0] && !taken[0]) {
+                        notifyString += item.getName() + " ";
+                        notified[0] = true;
+                    }
+                } else if (relativeMinutes < 6) {
+                    notified[0] = false;
+                    if (!taken[1] && schedule[1]) {
+                        if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                            taken[1] = true;
+                        }
+                    }
+                } else if (relativeMinutes < 10 && !taken[1] && schedule[1]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[1] = true;
                     }
-                }
-            } else if (relativeMinutes < 10 && !taken[1] && schedule[1]) {
-                if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
-                    taken[1] = true;
-                }
-                if (!notified[1] && !taken[1]) {
-                    notifyString += item.getName() + " ";
-                    notified[1] = true;
-                }
-            } else if (relativeMinutes < 11) {
-                notified[1] = false;
-                if (!taken[2] && schedule[2]) {
+                    if (!notified[1] && !taken[1]) {
+                        notifyString += item.getName() + " ";
+                        notified[1] = true;
+                    }
+                } else if (relativeMinutes < 11) {
+                    notified[1] = false;
+                    if (!taken[2] && schedule[2]) {
+                        if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                            taken[2] = true;
+                        }
+                    }
+                } else if (relativeMinutes < 15 && !taken[2] && schedule[2]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[2] = true;
                     }
+                    if (!notified[2] && !taken[2]) {
+                        notifyString += item.getName() + " ";
+                        notified[2] = true;
+                    }
+                    DataHolder.getInstance().setNewDay(true);
                 }
-            } else if (relativeMinutes < 15 && !taken[2] && schedule[2]) {
-                if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
-                    taken[2] = true;
-                }
-                if (!notified[2] && !taken[2]) {
-                    notifyString += item.getName() + " ";
-                    notified[2] = true;
-                }
-                DataHolder.getInstance().setNewDay(true);
             }
         }
         if (!notifyString.equals("Please take ")) {

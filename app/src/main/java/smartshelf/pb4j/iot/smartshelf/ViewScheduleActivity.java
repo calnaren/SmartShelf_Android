@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,26 +42,35 @@ public class ViewScheduleActivity extends ActionBarActivity {
             TableRow temp = new TableRow(this);
             temp.setLayoutParams(new ViewGroup.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             TextView nameText = new TextView(this);
+            nameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
             int index = DataHolder.getInstance().getBarcodes().indexOf(item.getName());
-            String tempName = DataHolder.getInstance().getItemNames().get(index);
-            nameText.setText(tempName);
-            TextView morning = new TextView(this);
-            TextView afternoon = new TextView(this);
-            TextView night = new TextView(this);
+            if (index > 0) {
+                String tempName = DataHolder.getInstance().getItemNames().get(index);
+                nameText.setText(tempName);
+                TextView morning = new TextView(this);
+                TextView afternoon = new TextView(this);
+                TextView night = new TextView(this);
 
-            int morningColor = item.getSchedule()[0] ? (item.getTaken()[0] ? 0xff00ff00 : 0xffff0000) : 0xff000000;
-            morning.setBackgroundColor(morningColor);
-            int afternoonColor = item.getSchedule()[1] ? (item.getTaken()[1] ? 0xff00ff00 : 0xffff0000) : 0xff000000;
-            morning.setBackgroundColor(afternoonColor);
-            int nightColor = item.getSchedule()[2] ? (item.getTaken()[2] ? 0xff00ff00 : 0xffff0000) : 0xff000000;
-            morning.setBackgroundColor(nightColor);
+                morning.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
+                afternoon.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
+                night.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
+                int morningColor = item.getSchedule()[0] ? (item.getTaken()[0] ? 0xff00ff00 : 0xffff0000) : 0xffffffff;
+                morning.setBackgroundColor(morningColor);
+                morning.setText("      ");
+                int afternoonColor = item.getSchedule()[1] ? (item.getTaken()[1] ? 0xff00ff00 : 0xffff0000) : 0xffffffff;
+                afternoon.setBackgroundColor(afternoonColor);
+                afternoon.setText("      ");
+                int nightColor = item.getSchedule()[2] ? (item.getTaken()[2] ? 0xff00ff00 : 0xffff0000) : 0xffffffff;
+                night.setBackgroundColor(nightColor);
+                night.setText("      ");
 
-            temp.addView(nameText);
-            temp.addView(morning);
-            temp.addView(afternoon);
-            temp.addView(night);
+                temp.addView(nameText);
+                temp.addView(morning);
+                temp.addView(afternoon);
+                temp.addView(night);
 
-            medicineTable.addView(temp, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT));
+                medicineTable.addView(temp, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            }
         }
 
         backButton.setOnClickListener(
