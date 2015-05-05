@@ -44,6 +44,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import proj.tony.com.bearcastutil.BearCastUtil;
+
 public class MainActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
@@ -55,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
     private Timer timer = null;
     private TimerTask timerTask;
     public boolean runFlag = false;
+    private static BearCastUtil sBearCastUtil;
 
     @Override
     protected void onDestroy() {
@@ -69,6 +72,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sBearCastUtil = new BearCastUtil(this, "PB4J");
         final Button addItemButton = (Button) findViewById(R.id.button1);
         final Button locateItemButton = (Button) findViewById(R.id.button2);
         final Button viewShelfButton = (Button) findViewById(R.id.button3);
@@ -127,6 +131,28 @@ public class MainActivity extends ActionBarActivity {
             sendUpdate();
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            sBearCastUtil.startBluetoothScan();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "BearCast Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onResume();
+        try {
+            sBearCastUtil.stopBlueToothScan();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "BearCast Error", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -243,6 +269,11 @@ public class MainActivity extends ActionBarActivity {
         if (!notifyString.equals("Please take ")) {
             Toast.makeText(getBaseContext(), notifyString, Toast.LENGTH_LONG).show();
             //TODO: Bearcast
+            String[] data = new String[1];
+            data[0] = notifyString;
+            String[] dataTypes = {"string"};
+            String templateName = "singleStringTemplate.html";
+            sBearCastUtil.deviceCast(data, dataTypes, templateName);
         }
         DataHolder.getInstance().setItems(items);
     }
