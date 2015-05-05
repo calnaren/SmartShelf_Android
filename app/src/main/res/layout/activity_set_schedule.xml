@@ -22,6 +22,19 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logocolor"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Schedule"
+            android:textSize="40dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/setScheduleText" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -59,10 +72,16 @@
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
+
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Morning"
+            android:textSize="25dp"
             android:id="@+id/morning"
             android:layout_gravity="left"
             android:checked="false" />
@@ -71,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Afternoon"
+            android:textSize="25dp"
             android:id="@+id/afternoon"
             android:layout_gravity="left"
             android:checked="false" />
@@ -79,9 +99,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Night"
+            android:textSize="25dp"
             android:id="@+id/night"
             android:layout_gravity="left"
             android:checked="false" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="100dp"

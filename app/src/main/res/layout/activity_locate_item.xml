@@ -22,6 +22,19 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logocolor"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Locate Item"
+            android:textSize="40dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/locateItemText" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

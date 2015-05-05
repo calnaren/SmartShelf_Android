@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +41,6 @@ public class AddItemActivity extends ActionBarActivity {
     private TimerTask timerTask;
 
     public TextView displayData;
-    public TextView shelfData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,6 @@ public class AddItemActivity extends ActionBarActivity {
         final Button homeButton = (Button) findViewById(R.id.homeButton);
 
         displayData = (TextView) findViewById(R.id.displayData);
-        shelfData = (TextView) findViewById(R.id.shelfData);
 
         backButton.setOnClickListener(
                 new Button.OnClickListener() {
@@ -145,15 +144,6 @@ public class AddItemActivity extends ActionBarActivity {
         }
     }
 
-    public void updateShelf() {
-        List<Integer> shelfInfo = DataHolder.getInstance().getShelf();
-        String text = "";
-        for (Integer s: shelfInfo) {
-            text += s + " ";
-        }
-        shelfData.setText(text);
-    }
-
     private class UpdatingUIElements extends AsyncTask<String, Void, Boolean> {
         public UpdatingUIElements() {
             super();
@@ -168,7 +158,6 @@ public class AddItemActivity extends ActionBarActivity {
                         public void run() {
                             if (DataHolder.getInstance().getCurrentActivity() == "add") {
                                 AddItemActivity.this.updateBarcode();
-                                AddItemActivity.this.updateShelf();
                             }
                         }
                     });

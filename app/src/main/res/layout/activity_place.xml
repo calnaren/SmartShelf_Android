@@ -22,6 +22,19 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logocolor"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place Item"
+            android:textSize="40dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/placeItemText" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -59,18 +72,31 @@
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Barcode Detected"
+            android:layout_gravity="center_horizontal"
+            android:textSize="35dp"
             android:id="@+id/displayData" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Place Item on Shelf"
             android:id="@+id/shelfData"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textSize="35dp"/>
 
     </LinearLayout>
 
