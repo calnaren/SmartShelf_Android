@@ -205,6 +205,8 @@ public class MainActivity extends ActionBarActivity {
         int relativeMinutes = minutes%15;
         List<ShelfItem> items = DataHolder.getInstance().getItems();
         List<Integer> weights = DataHolder.getInstance().getShelf();
+        List<String> barcodes = DataHolder.getInstance().getBarcodes();
+        List<String> itemNames = DataHolder.getInstance().getItemNames();
         if (relativeMinutes == 0 && DataHolder.getInstance().isNewDay()) {
             DataHolder.getInstance().setNewDay(false);
             for (ShelfItem item: items) {
@@ -229,7 +231,8 @@ public class MainActivity extends ActionBarActivity {
                         taken[0] = true;
                     }
                     if (!notified[0] && !taken[0]) {
-                        notifyString += item.getName() + " ";
+                        //notifyString += item.getName() + " ";
+                        notifyString += itemNames.get(barcodes.indexOf(item.getName()))+" ";
                         notified[0] = true;
                     }
                 } else if (relativeMinutes < 6) {
@@ -244,7 +247,8 @@ public class MainActivity extends ActionBarActivity {
                         taken[1] = true;
                     }
                     if (!notified[1] && !taken[1]) {
-                        notifyString += item.getName() + " ";
+                        //notifyString += item.getName() + " ";
+                        notifyString += itemNames.get(barcodes.indexOf(item.getName()))+" ";
                         notified[1] = true;
                     }
                 } else if (relativeMinutes < 11) {
@@ -259,7 +263,8 @@ public class MainActivity extends ActionBarActivity {
                         taken[2] = true;
                     }
                     if (!notified[2] && !taken[2]) {
-                        notifyString += item.getName() + " ";
+                        //notifyString += item.getName() + " ";
+                        notifyString += itemNames.get(barcodes.indexOf(item.getName()))+" ";
                         notified[2] = true;
                     }
                     DataHolder.getInstance().setNewDay(true);
