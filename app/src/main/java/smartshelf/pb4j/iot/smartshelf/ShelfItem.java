@@ -9,6 +9,15 @@ public class ShelfItem {
     private int weight = -1;
     private boolean[] schedule = {false, false, false};
     private boolean[] taken = {false, false, false};
+    private boolean[] notified = {false, false, false};
+
+    public boolean[] getNotified() {
+        return notified;
+    }
+
+    public void setNotified(boolean[] notified) {
+        this.notified = notified;
+    }
 
     public boolean[] getTaken() {
         return taken;

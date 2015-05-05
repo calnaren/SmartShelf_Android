@@ -48,11 +48,11 @@ public class ViewScheduleActivity extends ActionBarActivity {
             TextView afternoon = new TextView(this);
             TextView night = new TextView(this);
 
-            int morningColor = item.getSchedule()[0] ? 0xff00ff00 : 0xff000000;
+            int morningColor = item.getSchedule()[0] ? (item.getTaken()[0] ? 0xff00ff00 : 0xffff0000) : 0xff000000;
             morning.setBackgroundColor(morningColor);
-            int afternoonColor = item.getSchedule()[1] ? 0xff00ff00 : 0xff000000;
+            int afternoonColor = item.getSchedule()[1] ? (item.getTaken()[1] ? 0xff00ff00 : 0xffff0000) : 0xff000000;
             morning.setBackgroundColor(afternoonColor);
-            int nightColor = item.getSchedule()[2] ? 0xff00ff00 : 0xff000000;
+            int nightColor = item.getSchedule()[2] ? (item.getTaken()[2] ? 0xff00ff00 : 0xffff0000) : 0xff000000;
             morning.setBackgroundColor(nightColor);
 
             temp.addView(nameText);

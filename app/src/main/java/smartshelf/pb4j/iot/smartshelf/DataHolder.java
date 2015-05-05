@@ -17,6 +17,24 @@ public class DataHolder {
     private String currentActivity = "";
     private boolean addFlag = false;
     private boolean placeFlag = false;
+    private boolean newDay = true;
+    private static int WEIGHT_THRESHOLD = 125;
+
+    public static int getWEIGHT_THRESHOLD() {
+        return WEIGHT_THRESHOLD;
+    }
+
+    public static void setWEIGHT_THRESHOLD(int WEIGHT_THRESHOLD) {
+        DataHolder.WEIGHT_THRESHOLD = WEIGHT_THRESHOLD;
+    }
+
+    public boolean isNewDay() {
+        return newDay;
+    }
+
+    public void setNewDay(boolean newDay) {
+        this.newDay = newDay;
+    }
 
     private List<String> barcodes = Arrays.asList("X3400704", "X3400607", "X3400908");
     private List<String> itemNames = Arrays.asList("Coolmint", "Spearmint", "Wintergreen");

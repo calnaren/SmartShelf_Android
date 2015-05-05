@@ -36,6 +36,7 @@ import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -171,6 +172,79 @@ public class MainActivity extends ActionBarActivity {
         //displayData.setAllCaps(true);
     }
 
+    protected void checkSchedule() {
+        String notifyString = "Please take ";
+        Calendar calendar = Calendar.getInstance();
+        int minutes = calendar.get(Calendar.MINUTE);
+        int relativeMinutes = minutes%15;
+        List<ShelfItem> items = DataHolder.getInstance().getItems();
+        List<Integer> weights = DataHolder.getInstance().getShelf();
+        if (relativeMinutes == 0 && DataHolder.getInstance().isNewDay()) {
+            DataHolder.getInstance().setNewDay(false);
+            for (ShelfItem item: items) {
+                boolean [] temp = {false, false, false};
+                item.setTaken(temp);
+            }
+        }
+        for (ShelfItem item: items) {
+            boolean [] schedule = item.getSchedule();
+            boolean [] taken = item.getTaken();
+            boolean [] notified = item.getNotified();
+            if (relativeMinutes < 1) {
+                notified[2] = false;
+                if (!taken[0] && schedule[0]) {
+                    if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                        taken[0] = true;
+                    }
+                }
+            } else if (relativeMinutes < 5 && !taken[0] && schedule[0]) {
+                if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                    taken[0] = true;
+                }
+                if (!notified[0] && !taken[0]) {
+                    notifyString += item.getName() + " ";
+                    notified[0] = true;
+                }
+            } else if (relativeMinutes < 6) {
+                notified[0] = false;
+                if (!taken[1] && schedule[1]) {
+                    if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                        taken[1] = true;
+                    }
+                }
+            } else if (relativeMinutes < 10 && !taken[1] && schedule[1]) {
+                if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                    taken[1] = true;
+                }
+                if (!notified[1] && !taken[1]) {
+                    notifyString += item.getName() + " ";
+                    notified[1] = true;
+                }
+            } else if (relativeMinutes < 11) {
+                notified[1] = false;
+                if (!taken[2] && schedule[2]) {
+                    if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                        taken[2] = true;
+                    }
+                }
+            } else if (relativeMinutes < 15 && !taken[2] && schedule[2]) {
+                if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                    taken[2] = true;
+                }
+                if (!notified[2] && !taken[2]) {
+                    notifyString += item.getName() + " ";
+                    notified[2] = true;
+                }
+                DataHolder.getInstance().setNewDay(true);
+            }
+        }
+        if (!notifyString.equals("Please take ")) {
+            Toast.makeText(getBaseContext(), notifyString, Toast.LENGTH_LONG).show();
+            //TODO: Bearcast
+        }
+        DataHolder.getInstance().setItems(items);
+    }
+
     public void sendUpdate() {
         rescheduleTimer();
     }
@@ -286,6 +360,7 @@ public class MainActivity extends ActionBarActivity {
                                     @Override
                                     public void run() {
                                         MainActivity.this.updateBarcodeText();
+                                        MainActivity.this.checkSchedule();
                                     }
                                 });
 
