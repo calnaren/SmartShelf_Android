@@ -25,6 +25,7 @@ import java.util.List;
 public class ViewScheduleActivity extends ActionBarActivity {
 
     private GridView medicineGrid;
+    private int textSize = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +43,22 @@ public class ViewScheduleActivity extends ActionBarActivity {
         TableRow header = new TableRow(this);
         header.setLayoutParams(new ViewGroup.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         TextView nameHeader = new TextView(this);
-        nameHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
-        nameHeader.setText("Item Name");
+        nameHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        nameHeader.setText("  Item Name  ");
 
         TextView shelfNumberHeader = new TextView(this);
-        shelfNumberHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
-        shelfNumberHeader.setText("Shelf");
+        shelfNumberHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        shelfNumberHeader.setText("  Shelf  ");
 
         TextView morningHeader = new TextView(this);
         TextView afternoonHeader = new TextView(this);
         TextView nightHeader = new TextView(this);
-        morningHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
-        afternoonHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
-        nightHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
-        morningHeader.setText("Morning ");
-        afternoonHeader.setText("Afternoon");
-        nightHeader.setText("Night   ");
+        morningHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        afternoonHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        nightHeader.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        morningHeader.setText("   Morning   ");
+        afternoonHeader.setText("  Afternoon  ");
+        nightHeader.setText("     Night     ");
 
         header.addView(nameHeader);
         header.addView(shelfNumberHeader);
@@ -70,22 +71,22 @@ public class ViewScheduleActivity extends ActionBarActivity {
             TableRow temp = new TableRow(this);
             temp.setLayoutParams(new ViewGroup.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             TextView nameText = new TextView(this);
-            nameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 30);
+            nameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             TextView numberText = new TextView(this);
-            nameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 30);
+            nameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             int index = DataHolder.getInstance().getBarcodes().indexOf(item.getName());
             if (index > 0) {
                 String tempName = DataHolder.getInstance().getItemNames().get(index);
                 nameText.setText(tempName);
-                numberText.setText(item.getIndex()+"");
+                numberText.setText("  "+(item.getIndex()+1));
 
                 TextView morning = new TextView(this);
                 TextView afternoon = new TextView(this);
                 TextView night = new TextView(this);
 
-                morning.setTextSize(TypedValue.COMPLEX_UNIT_PX, 30);
-                afternoon.setTextSize(TypedValue.COMPLEX_UNIT_PX, 30);
-                night.setTextSize(TypedValue.COMPLEX_UNIT_PX, 30);
+                morning.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                afternoon.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                night.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                 int morningColor = item.getSchedule()[0] ? (item.getTaken()[0] ? 0xff00ff00 : 0xffff0000) : 0xffffffff;
                 morning.setBackgroundColor(morningColor);
                 morning.setText("      ");

@@ -268,11 +268,11 @@ public class MainActivity extends ActionBarActivity {
         }
         if (!notifyString.equals("Please take ")) {
             Toast.makeText(getBaseContext(), notifyString, Toast.LENGTH_LONG).show();
-            //TODO: Bearcast
+
             String[] data = new String[1];
             data[0] = notifyString;
             String[] dataTypes = {"string"};
-            String templateName = "singleStringTemplate.html";
+            String templateName = "smartShelfTemplate.html";
             sBearCastUtil.deviceCast(data, dataTypes, templateName);
         }
         DataHolder.getInstance().setItems(items);

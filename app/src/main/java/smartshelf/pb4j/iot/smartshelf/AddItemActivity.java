@@ -130,7 +130,7 @@ public class AddItemActivity extends ActionBarActivity {
             DataHolder.getInstance().setPreviousBarcode(barcode);
             displayData.setText("Waiting for barcode...");
         }
-        else if (!barcode.equals(previousBarcode)) {
+        else if (!barcode.equals(previousBarcode) && !barcode.equals("x")) {
             List<ShelfItem> temp = DataHolder.getInstance().getItems();
             ShelfItem newItem = new ShelfItem();
             newItem.setName(barcode);

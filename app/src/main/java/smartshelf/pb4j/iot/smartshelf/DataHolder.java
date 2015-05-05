@@ -36,8 +36,8 @@ public class DataHolder {
         this.newDay = newDay;
     }
 
-    private List<String> barcodes = Arrays.asList("X3400704", "X3400607", "X3400908");
-    private List<String> itemNames = Arrays.asList("Coolmint", "Spearmint", "Wintergreen");
+    private List<String> barcodes = Arrays.asList("X0000000", "X3400704", "X3400607", "X3400908");
+    private List<String> itemNames = Arrays.asList("testXYZ", "Coolmint", "Spearmint", "Wintergreen");
 
     public List<String> getBarcodes() {
         return barcodes;
