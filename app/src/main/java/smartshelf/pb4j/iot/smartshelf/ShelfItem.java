@@ -8,6 +8,15 @@ public class ShelfItem {
     private int index = -1;
     private int weight = -1;
     private boolean[] schedule = {false, false, false};
+    private boolean[] taken = {false, false, false};
+
+    public boolean[] getTaken() {
+        return taken;
+    }
+
+    public void setTaken(boolean[] taken) {
+        this.taken = taken;
+    }
 
     public boolean[] getSchedule() {
         return schedule;

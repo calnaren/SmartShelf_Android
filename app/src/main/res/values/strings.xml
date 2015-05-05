@@ -9,4 +9,5 @@
     <string name="title_activity_view_schedule">ViewScheduleActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_place">PlaceActivity</string>
+    <string name="title_activity_set_schedule">SetSchedule</string>
 </resources>

@@ -2,6 +2,7 @@ package smartshelf.pb4j.iot.smartshelf;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,16 +26,25 @@ public class LocateItemActivity extends ActionBarActivity {
         setContentView(R.layout.activity_locate_item);
 
         final ListView listview = (ListView) findViewById(R.id.itemList);
-        String[] values = new String[]{"Ibuprofen", "Murinae", "Graval",
-                "Hydrocodone", "Zocor", "Lisinopril", "Norvasc", "Azithromycin",
-                "Amoxicillin"};
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
+        /*String[] values = new String[]{"Ibuprofen", "Murinae", "Graval",
+                "Hydrocodone", "Zocor", "Lisinopril", "Norvasc", "Azithromycin",
+                "Amoxicillin"};*/
+
+        List<String> values = new ArrayList<String>();
+        final List<ShelfItem> listItems = DataHolder.getInstance().getItems();
+        List<String> barcodes = DataHolder.getInstance().getBarcodes();
+        List<String> itemNames = DataHolder.getInstance().getItemNames();
+        for (ShelfItem i: listItems) {
+            int index = barcodes.indexOf(i.getName());
+            values.add(itemNames.get(index));
         }
+
+        /*for (int i = 0; i < values.length; ++i) {
+            list.add(values[i]);
+        }*/
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
+                android.R.layout.simple_list_item_1, values);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,7 +55,14 @@ public class LocateItemActivity extends ActionBarActivity {
                 final String item = (String) parent.getItemAtPosition(position);
                 Intent intent = new Intent(LocateItemActivity.this, ViewShelfActivity.class);
 
-                intent.putExtra("index", position);
+                LED led = DataHolder.getInstance().getLed();
+                led.setR(0x00);
+                led.setG(0xFF);
+                led.setB(0x00);
+                int pos = listItems.get(position).getIndex();
+                led.setIndex(pos);
+                DataHolder.getInstance().setLed(led);
+
                 startActivity(intent);
             }
         });

@@ -1,6 +1,7 @@
 package smartshelf.pb4j.iot.smartshelf;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,6 +17,25 @@ public class DataHolder {
     private String currentActivity = "";
     private boolean addFlag = false;
     private boolean placeFlag = false;
+
+    private List<String> barcodes = Arrays.asList("X3400704", "X3400607", "X3400908");
+    private List<String> itemNames = Arrays.asList("Coolmint", "Spearmint", "Wintergreen");
+
+    public List<String> getBarcodes() {
+        return barcodes;
+    }
+
+    public void setBarcodes(List<String> barcodes) {
+        this.barcodes = barcodes;
+    }
+
+    public List<String> getItemNames() {
+        return itemNames;
+    }
+
+    public void setItemNames(List<String> itemNames) {
+        this.itemNames = itemNames;
+    }
 
     public boolean isAddFlag() {
         return addFlag;

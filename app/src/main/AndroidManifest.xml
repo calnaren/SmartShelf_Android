@@ -50,6 +50,10 @@
             android:name=".PlaceActivity"
             android:label="@string/title_activity_place" >
         </activity>
+        <activity
+            android:name=".SetSchedule"
+            android:label="@string/title_activity_set_schedule" >
+        </activity>
     </application>
 
 </manifest>

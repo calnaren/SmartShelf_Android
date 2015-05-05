@@ -1,17 +1,87 @@
 package smartshelf.pb4j.iot.smartshelf;
 
+import android.app.ActionBar;
+import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ViewScheduleActivity extends ActionBarActivity {
+
+    private GridView medicineGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_schedule);
+
+        TableLayout medicineTable = (TableLayout) findViewById(R.id.medicineTable);
+
+        final Button backButton = (Button) findViewById(R.id.backButton);
+        final Button homeButton = (Button) findViewById(R.id.homeButton);
+
+        List<ShelfItem> items = DataHolder.getInstance().getItems();
+        List<TextView> medicines = new ArrayList<TextView>();
+        for (ShelfItem item: items) {
+            TableRow temp = new TableRow(this);
+            temp.setLayoutParams(new ViewGroup.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            TextView nameText = new TextView(this);
+            int index = DataHolder.getInstance().getBarcodes().indexOf(item.getName());
+            String tempName = DataHolder.getInstance().getItemNames().get(index);
+            nameText.setText(tempName);
+            TextView morning = new TextView(this);
+            TextView afternoon = new TextView(this);
+            TextView night = new TextView(this);
+
+            int morningColor = item.getSchedule()[0] ? 0xff00ff00 : 0xff000000;
+            morning.setBackgroundColor(morningColor);
+            int afternoonColor = item.getSchedule()[1] ? 0xff00ff00 : 0xff000000;
+            morning.setBackgroundColor(afternoonColor);
+            int nightColor = item.getSchedule()[2] ? 0xff00ff00 : 0xff000000;
+            morning.setBackgroundColor(nightColor);
+
+            temp.addView(nameText);
+            temp.addView(morning);
+            temp.addView(afternoon);
+            temp.addView(night);
+
+            medicineTable.addView(temp, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT));
+        }
+
+        backButton.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v)
+                    {
+                        Intent intent = new Intent(ViewScheduleActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        homeButton.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v)
+                    {
+                        Intent intent = new Intent(ViewScheduleActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
 

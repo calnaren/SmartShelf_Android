@@ -138,7 +138,9 @@ public class AddItemActivity extends ActionBarActivity {
             newItem.setSchedule(tempSchedule);
             temp.add(newItem);
             DataHolder.getInstance().setItems(temp);
-            Intent intent = new Intent(AddItemActivity.this, PlaceActivity.class);
+            /*Intent intent = new Intent(AddItemActivity.this, PlaceActivity.class);
+            AddItemActivity.this.startActivity(intent);*/
+            Intent intent = new Intent(AddItemActivity.this, SetSchedule.class);
             AddItemActivity.this.startActivity(intent);
         }
     }
