@@ -19,6 +19,15 @@ public class DataHolder {
     private boolean placeFlag = false;
     private boolean newDay = true;
     private static int WEIGHT_THRESHOLD = 125;
+    private List<Integer> colors = Arrays.asList(0, 0, 0, 0, 0, 0);
+
+    public List<Integer> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<Integer> colors) {
+        this.colors = colors;
+    }
 
     public static int getWEIGHT_THRESHOLD() {
         return WEIGHT_THRESHOLD;

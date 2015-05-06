@@ -104,7 +104,17 @@ public class PlaceActivity extends ActionBarActivity {
                     tempItems.get(tempItems.size() - 1).setIndex(index);
                     tempItems.get(tempItems.size() - 1).setWeight(i);
                     DataHolder.getInstance().setItems(tempItems);
-                    DataHolder.getInstance().setLed(new LED(index, 0, 255, 0));
+
+                    List<Integer> colors = DataHolder.getInstance().getColors();
+                    int iter = 0;
+                    for (int color: colors) {
+                        if (color == 2) {
+                            colors.set(iter, 0);
+                        }
+                        iter++;
+                    }
+                    colors.set(index, 2); //Setting to green
+                    DataHolder.getInstance().setColors(colors);
                 }
             }
             j++;

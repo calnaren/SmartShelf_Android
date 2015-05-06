@@ -55,13 +55,24 @@ public class LocateItemActivity extends ActionBarActivity {
                 final String item = (String) parent.getItemAtPosition(position);
                 Intent intent = new Intent(LocateItemActivity.this, ViewShelfActivity.class);
 
-                LED led = DataHolder.getInstance().getLed();
-                led.setR(0x00);
-                led.setG(0xFF);
-                led.setB(0x00);
+                //LED led = DataHolder.getInstance().getLed();
+                //led.setR(0x00);
+                //led.setG(0xFF);
+                //led.setB(0x00);
                 int pos = listItems.get(position).getIndex();
-                led.setIndex(pos);
-                DataHolder.getInstance().setLed(led);
+                //led.setIndex(pos);
+                //DataHolder.getInstance().setLed(led);
+
+                List<Integer> colors = DataHolder.getInstance().getColors();
+                int iter = 0;
+                for (int color: colors) {
+                    if (color == 2) {
+                        colors.set(iter, 0);
+                    }
+                    iter++;
+                }
+                colors.set(pos, 2); //Set to green
+                DataHolder.getInstance().setColors(colors);
 
                 startActivity(intent);
             }

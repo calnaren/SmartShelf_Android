@@ -207,6 +207,7 @@ public class MainActivity extends ActionBarActivity {
         List<Integer> weights = DataHolder.getInstance().getShelf();
         List<String> barcodes = DataHolder.getInstance().getBarcodes();
         List<String> itemNames = DataHolder.getInstance().getItemNames();
+        List<Integer> colors = DataHolder.getInstance().getColors();
         if (relativeMinutes == 0 && DataHolder.getInstance().isNewDay()) {
             DataHolder.getInstance().setNewDay(false);
             for (ShelfItem item: items) {
@@ -220,6 +221,9 @@ public class MainActivity extends ActionBarActivity {
                 boolean[] taken = item.getTaken();
                 boolean[] notified = item.getNotified();
                 if (relativeMinutes < 1) {
+                    if (colors.get(item.getIndex()) == 1) {
+                        colors.set(item.getIndex(), 0);
+                    }
                     notified[2] = false;
                     if (!taken[0] && schedule[0]) {
                         if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
@@ -229,6 +233,12 @@ public class MainActivity extends ActionBarActivity {
                 } else if (relativeMinutes < 5 && !taken[0] && schedule[0]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[0] = true;
+                        if (colors.get(item.getIndex()) == 1) {
+                            colors.set(item.getIndex(), 0);
+                        }
+                    }
+                    else {
+                        colors.set(item.getIndex(), 1);
                     }
                     if (!notified[0] && !taken[0]) {
                         //notifyString += item.getName() + " ";
@@ -236,6 +246,9 @@ public class MainActivity extends ActionBarActivity {
                         notified[0] = true;
                     }
                 } else if (relativeMinutes < 6) {
+                    if (colors.get(item.getIndex()) == 1) {
+                        colors.set(item.getIndex(), 0);
+                    }
                     notified[0] = false;
                     if (!taken[1] && schedule[1]) {
                         if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
@@ -245,13 +258,22 @@ public class MainActivity extends ActionBarActivity {
                 } else if (relativeMinutes < 10 && !taken[1] && schedule[1]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[1] = true;
+                        if (colors.get(item.getIndex()) == 1) {
+                            colors.set(item.getIndex(), 0);
+                        }
+                    }
+                    else {
+                        colors.set(item.getIndex(), 1);
                     }
                     if (!notified[1] && !taken[1]) {
                         //notifyString += item.getName() + " ";
-                        notifyString += itemNames.get(barcodes.indexOf(item.getName()))+" ";
+                        notifyString += itemNames.get(barcodes.indexOf(item.getName())) + " ";
                         notified[1] = true;
                     }
                 } else if (relativeMinutes < 11) {
+                    if (colors.get(item.getIndex()) == 1) {
+                        colors.set(item.getIndex(), 0);
+                    }
                     notified[1] = false;
                     if (!taken[2] && schedule[2]) {
                         if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
@@ -261,6 +283,12 @@ public class MainActivity extends ActionBarActivity {
                 } else if (relativeMinutes < 15 && !taken[2] && schedule[2]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[2] = true;
+                        if (colors.get(item.getIndex()) == 1) {
+                            colors.set(item.getIndex(), 0);
+                        }
+                    }
+                    else {
+                        colors.set(item.getIndex(), 1);
                     }
                     if (!notified[2] && !taken[2]) {
                         //notifyString += item.getName() + " ";
@@ -281,6 +309,7 @@ public class MainActivity extends ActionBarActivity {
             sBearCastUtil.deviceCast(data, dataTypes, templateName);
         }
         DataHolder.getInstance().setItems(items);
+        DataHolder.getInstance().setColors(colors);
     }
 
     public void sendUpdate() {
@@ -376,12 +405,19 @@ public class MainActivity extends ActionBarActivity {
 
                                 //FIXME: Should go into locate item rather than here
                                 JSONObject message = new JSONObject();
-                                LED led = DataHolder.getInstance().getLed();
+                                /*LED led = DataHolder.getInstance().getLed();
 
                                 message.put("r", led.getR()+"");
                                 message.put("g", led.getG()+"");
                                 message.put("b", led.getB()+"");
-                                message.put("index", led.getIndex()+"");
+                                message.put("index", led.getIndex()+"");*/
+
+                                List<Integer> colors = DataHolder.getInstance().getColors();
+                                int iter2 = 0;
+                                for (int color: colors) {
+                                    message.put(iter2+"", color+"");
+                                    iter2++;
+                                }
 
                                 int server_port = 2196;
                                 InetAddress[] local = InetAddress.getAllByName("2001:470:66:3f9::2");

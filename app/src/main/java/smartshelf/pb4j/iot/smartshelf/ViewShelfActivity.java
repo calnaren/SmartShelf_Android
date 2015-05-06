@@ -64,7 +64,7 @@ public class ViewShelfActivity extends ActionBarActivity {
             bottles[item.getIndex()/3][item.getIndex()%3].setAlpha(1.0f);
         }
 
-        LED led = DataHolder.getInstance().getLed();
+        /*LED led = DataHolder.getInstance().getLed();
         currentIndex = led.getIndex();
         r = led.getR();
         g = led.getG();
@@ -72,9 +72,28 @@ public class ViewShelfActivity extends ActionBarActivity {
         color = (0xff<<24) | (r<<16) | (g<<8) | b;
         if (color == 0xff000000) {
             color = 0xffffffff;
+        }*/
+
+        List<Integer> colors = DataHolder.getInstance().getColors();
+        int iter = 0;
+        for (int color2: colors) {
+            switch (color2) {
+                case 0: lights[iter/3][iter%3].setBackgroundColor(0xffffffff);
+                    break;
+                case 1: lights[iter/3][iter%3].setBackgroundColor(0xffff0000);
+                    break;
+                case 2: lights[iter/3][iter%3].setBackgroundColor(0xff00ff00);
+                    break;
+                case 3: lights[iter/3][iter%3].setBackgroundColor(0xff0000ff);
+                    break;
+                case 4: lights[iter/3][iter%3].setBackgroundColor(0xffffff00);
+                    break;
+            }
+            iter++;
         }
-        lights[currentIndex/3][currentIndex%3].setBackgroundColor(color);
-        System.out.println(currentIndex);
+
+        //lights[currentIndex/3][currentIndex%3].setBackgroundColor(color);
+        //System.out.println(currentIndex);
 
         backButton.setOnClickListener(
             new Button.OnClickListener() {
@@ -123,10 +142,20 @@ public class ViewShelfActivity extends ActionBarActivity {
     }
 
     private void resetLights() {
-        LED led = DataHolder.getInstance().getLed();
+        /*LED led = DataHolder.getInstance().getLed();
         led.setR(0);
         led.setG(0);
         led.setB(0);
-        DataHolder.getInstance().setLed(led);
+        DataHolder.getInstance().setLed(led);*/
+
+        List<Integer> colors = DataHolder.getInstance().getColors();
+        int iter = 0;
+        for (int color: colors) {
+            if (color == 2) {
+                colors.set(iter, 0);
+            }
+            iter++;
+        }
+        DataHolder.getInstance().setColors(colors);
     }
 }
