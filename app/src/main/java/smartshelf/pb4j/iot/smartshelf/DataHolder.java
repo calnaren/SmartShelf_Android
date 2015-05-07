@@ -21,6 +21,11 @@ public class DataHolder {
     private static int WEIGHT_THRESHOLD = 125;
     private List<Integer> colors = Arrays.asList(0, 0, 0, 0, 0, 0);
 
+    private List<String> barcodes = Arrays.asList("X00000000000", "X09118973680", "X49247783502", "X49247783519",
+            "X49247783526", "X57814133880", "X57814133873", "X57814133897", "X09118973673", "X09118973697");
+    private List<String> itemNames = Arrays.asList("dummyItem", "Humira", "Nexium", "Crestor",
+            "Remicade", "Rituxan", "Copaxone", "Atripla", "Abilify", "Enbrel");
+
     public List<Integer> getColors() {
         return colors;
     }
@@ -44,9 +49,6 @@ public class DataHolder {
     public void setNewDay(boolean newDay) {
         this.newDay = newDay;
     }
-
-    private List<String> barcodes = Arrays.asList("X0000000", "X3400704", "X3400607", "X3400908");
-    private List<String> itemNames = Arrays.asList("testXYZ", "Coolmint", "Spearmint", "Wintergreen");
 
     public List<String> getBarcodes() {
         return barcodes;
