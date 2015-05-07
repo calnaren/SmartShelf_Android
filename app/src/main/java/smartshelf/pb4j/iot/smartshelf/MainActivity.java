@@ -202,21 +202,48 @@ public class MainActivity extends ActionBarActivity {
         String notifyString = "Please take ";
         Calendar calendar = Calendar.getInstance();
         int minutes = calendar.get(Calendar.MINUTE);
-        int relativeMinutes = minutes%15;
+        int relativeMinutes = minutes%6;
         List<ShelfItem> items = DataHolder.getInstance().getItems();
         List<Integer> weights = DataHolder.getInstance().getShelf();
         List<String> barcodes = DataHolder.getInstance().getBarcodes();
         List<String> itemNames = DataHolder.getInstance().getItemNames();
         List<Integer> colors = DataHolder.getInstance().getColors();
+        List<ShelfItem> itemsToDelete = new ArrayList<ShelfItem>();
+        int iter = 0;
         if (relativeMinutes == 0 && DataHolder.getInstance().isNewDay()) {
             DataHolder.getInstance().setNewDay(false);
             for (ShelfItem item: items) {
                 boolean [] temp = {false, false, false};
                 item.setTaken(temp);
+                if (!item.isTakenInDay()) {
+                    itemsToDelete.add(item);
+                    if (item.getIndex() > -1) {
+                        Toast.makeText(getBaseContext(), "Deleting the item " + itemNames.get(barcodes.indexOf(item.getName())), Toast.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    item.setTakenInDay(false);
+                }
+                iter++;
             }
         }
+
+        for (int iter2 = itemsToDelete.size()-1; iter2 >=0; iter2--) {
+            items.remove(itemsToDelete.get(iter2));
+        }
+        /*
+        for (int sh: itemsToDelete) {
+            items.remove(sh);
+        }*/
+        DataHolder.getInstance().setItems(items);
+
+        int curTime = 2;
+
         for (ShelfItem item: items) {
             if (item.getIndex() > -1) {
+                if (weights.get(item.getIndex()) > DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
+                    item.setTakenInDay(true);
+                }
                 boolean[] schedule = item.getSchedule();
                 boolean[] taken = item.getTaken();
                 boolean[] notified = item.getNotified();
@@ -230,7 +257,7 @@ public class MainActivity extends ActionBarActivity {
                             taken[0] = true;
                         }
                     }
-                } else if (relativeMinutes < 5 && !taken[0] && schedule[0]) {
+                } else if (relativeMinutes < curTime && !taken[0] && schedule[0]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[0] = true;
                         if (colors.get(item.getIndex()) == 1) {
@@ -245,7 +272,7 @@ public class MainActivity extends ActionBarActivity {
                         notifyString += itemNames.get(barcodes.indexOf(item.getName()))+" ";
                         notified[0] = true;
                     }
-                } else if (relativeMinutes < 6) {
+                } else if (relativeMinutes < (curTime+1)) {
                     if (colors.get(item.getIndex()) == 1) {
                         colors.set(item.getIndex(), 0);
                     }
@@ -255,7 +282,7 @@ public class MainActivity extends ActionBarActivity {
                             taken[1] = true;
                         }
                     }
-                } else if (relativeMinutes < 10 && !taken[1] && schedule[1]) {
+                } else if (relativeMinutes < (curTime*2) && !taken[1] && schedule[1]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[1] = true;
                         if (colors.get(item.getIndex()) == 1) {
@@ -270,7 +297,7 @@ public class MainActivity extends ActionBarActivity {
                         notifyString += itemNames.get(barcodes.indexOf(item.getName())) + " ";
                         notified[1] = true;
                     }
-                } else if (relativeMinutes < 11) {
+                } else if (relativeMinutes < ((curTime*2)+1)) {
                     if (colors.get(item.getIndex()) == 1) {
                         colors.set(item.getIndex(), 0);
                     }
@@ -280,7 +307,7 @@ public class MainActivity extends ActionBarActivity {
                             taken[2] = true;
                         }
                     }
-                } else if (relativeMinutes < 15 && !taken[2] && schedule[2]) {
+                } else if (relativeMinutes < (curTime*3) && !taken[2] && schedule[2]) {
                     if (weights.get(item.getIndex()) < DataHolder.getInstance().getWEIGHT_THRESHOLD()) {
                         taken[2] = true;
                         if (colors.get(item.getIndex()) == 1) {
@@ -302,7 +329,7 @@ public class MainActivity extends ActionBarActivity {
         if (!notifyString.equals("Please take ")) {
             Toast.makeText(getBaseContext(), notifyString, Toast.LENGTH_LONG).show();
 
-            String[] data = new String[7];
+            String[] data = new String[13];
             data[0] = notifyString;
             List<Integer> colors2 = DataHolder.getInstance().getColors();
             int i = 1;
@@ -310,7 +337,15 @@ public class MainActivity extends ActionBarActivity {
                 data[i] = color+"";
                 i++;
             }
-            String[] dataTypes = {"string", "number", "number", "number", "number", "number", "number"};
+            for (int j = 7; j < 13; j++) {
+                data[j] = 0+"";
+            }
+            for (ShelfItem item: items) {
+                data[7+item.getIndex()] = 1+"";
+            }
+
+            String[] dataTypes = {"string", "number", "number", "number", "number", "number", "number",
+                    "number", "number", "number", "number", "number", "number"};
             String templateName = "smartShelfTemplate.html";
             sBearCastUtil.deviceCast(data, dataTypes, templateName);
         }

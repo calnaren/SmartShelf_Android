@@ -10,6 +10,7 @@ public class ShelfItem {
     private boolean[] schedule = {false, false, false};
     private boolean[] taken = {false, false, false};
     private boolean[] notified = {false, false, false};
+    private boolean takenInDay = false;
 
     public boolean[] getNotified() {
         return notified;
@@ -57,5 +58,13 @@ public class ShelfItem {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public boolean isTakenInDay() {
+        return takenInDay;
+    }
+
+    public void setTakenInDay(boolean takenInDay) {
+        this.takenInDay = takenInDay;
     }
 }
