@@ -84,7 +84,6 @@ public class PlaceActivity extends ActionBarActivity {
         for (Integer s: shelfInfo) {
             text += s + " ";
         }
-        displayData.setText(DataHolder.getInstance().getItems().size()+"");
 
         List<Integer> previous = DataHolder.getInstance().getPreviousShelf();
         int j = 0;

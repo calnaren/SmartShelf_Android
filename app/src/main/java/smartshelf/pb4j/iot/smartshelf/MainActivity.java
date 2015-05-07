@@ -302,7 +302,7 @@ public class MainActivity extends ActionBarActivity {
         if (!notifyString.equals("Please take ")) {
             Toast.makeText(getBaseContext(), notifyString, Toast.LENGTH_LONG).show();
 
-            String[] data = new String[1];
+            String[] data = new String[7];
             data[0] = notifyString;
             List<Integer> colors2 = DataHolder.getInstance().getColors();
             int i = 1;
