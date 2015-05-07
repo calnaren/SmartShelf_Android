@@ -304,7 +304,13 @@ public class MainActivity extends ActionBarActivity {
 
             String[] data = new String[1];
             data[0] = notifyString;
-            String[] dataTypes = {"string"};
+            List<Integer> colors2 = DataHolder.getInstance().getColors();
+            int i = 1;
+            for (int color: colors) {
+                data[i] = color+"";
+                i++;
+            }
+            String[] dataTypes = {"string", "number", "number", "number", "number", "number", "number"};
             String templateName = "smartShelfTemplate.html";
             sBearCastUtil.deviceCast(data, dataTypes, templateName);
         }
